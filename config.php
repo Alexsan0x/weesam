@@ -12,7 +12,7 @@ $google_maps_api_key = 'AIzaSyDb9lDX6ULJGKE74MK9iNJJFpdnKUgWThE';
 $gemini_api_key = 'AIzaSyBTjZa_s5I6_satso78Mr2ryuxrQqMZhuU';
 
 $site_name = 'Dalili';
-$site_url = 'http://localhost/weesam';
+$site_url = 'https://weesam-production.up.railway.app';
 
 date_default_timezone_set('Asia/Amman');
 
