@@ -10,7 +10,6 @@ try {
     );
     echo "Connected to database.\n";
 
-    // Add role column to users if missing
     try {
         $pdo->exec("ALTER TABLE users ADD COLUMN IF NOT EXISTS role VARCHAR(20) DEFAULT 'user'");
         echo "Users table updated with role column.\n";
@@ -18,7 +17,6 @@ try {
         echo "Role column note: " . $e->getMessage() . "\n";
     }
 
-    // Create places table
     $pdo->exec("CREATE TABLE IF NOT EXISTS places (
         id VARCHAR(50) PRIMARY KEY,
         name VARCHAR(200) NOT NULL,
@@ -39,7 +37,6 @@ try {
     )");
     echo "Places table created.\n";
 
-    // Load places from JSON and insert into DB
     $jsonPath = __DIR__ . '/data/places.json';
     $places = json_decode(file_get_contents($jsonPath), true);
 
@@ -80,7 +77,6 @@ try {
 
     echo "\nPlaces migrated to database successfully!\n";
 
-    // Create a default admin user if none exists
     $adminCheck = $pdo->prepare("SELECT id FROM users WHERE role = 'admin'");
     $adminCheck->execute();
     if (!$adminCheck->fetch()) {
