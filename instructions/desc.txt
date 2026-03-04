@@ -1,0 +1,548 @@
+ 
+Mutah University, Karak Jordan
+Faculty of Information Technology
+
+
+DALILI WEB APPLICATION
+
+A project submitted
+in partial fulfillment of the requirements for the
+B.Sc. Degree in Information Technology  
+
+By
+Wesam M Abu-Nsair ( 420222212507 / Information Security) 
+Abdalrahman H Al-Majali ( 120222212047 / Information Security)
+Shahd M Al-Salman ( 120222211048 /Computer Science )
+Esra’a A Al-Masoud ( 120222211007 / Computer Science )
+
+Supervised by
+Dr Ghayth  Al-Mahadin 
+Committee Member Names
+First Committee Member’s First Name Middle Initial Last Name
+Second Committee Member’s First Name Middle Initial Last Name
+Month Year
+ 
+CERTIFICATE
+It is hereby certified that the project titled <Dalili web application >, submitted by undersigned, in partial fulfillment of the award of the degree of “Bachelor in” embodies original work done by them under my supervision.
+All the analysis, design and system development have been accomplished by the undersigned. Moreover, this project has not been submitted to any other college or university.
+
+
+
+
+
+
+
+
+
+
+
+ 
+Wesam Abu-Nsair (420222212507)
+Abdalrahman Al-Majali(120222212047)
+Shahd Al-Salman (120222211048) 
+Esra’a Al-Masoud (120222211007)
+ Signature
+ Signature
+ Signature
+             Signature  
+ 
+ 
+ 
+ABSTRACT
+The Dalili Web Application is a secure and intelligent tourism platform aims to enhance visitors’ experiences in Jordan. The project seeks to address the lack of a unified, smart system that can assist tourists in easily locating attractions, accessing accurate cultural information, and receiving personalized recommendations. To solve this, the project will integrate three main technologies: Google Maps API for interactive geographic visualization, Gemini AI (Google AI) for natural-language assistance, and web security measures to ensure safe user interactions. The system will be developed using HTML, CSS, and JavaScript and will include a user-friendly interface along with a virtual assistant named “Abu Mahmoud,” which is intended to respond to users’ queries in both Arabic and English. System testing will be conducted to evaluate the platform’s ability to accurately display tourist site locations, provide relevant contextual information, and deliver intelligent responses through the AI assistant. The expected outcomes are to demonstrate the effectiveness of combining artificial intelligence with geospatial data to create an engaging and secure digital tourism experience. In conclusion, Dalili is expected to enhance accessibility, safety, and user engagement in Jordan’s tourism sector and may serve as a scalable model for other destinations seeking smart and interactive visitor platforms. 
+ACKNOWLEDGEMENTS
+      Lastly, we wish to convey our sincere thanks and deep appreciation to our supervisor, Dr Ghayth  Al-Mahadin  for investing time in reviewing our work and providing us the needed guidance and support. We are also immensely grateful to IT college, Mutah university.
+
+
+ 
+TABLE OF CONTENTS
+Contents
+CERTIFICATE	II
+ABSTRACT	III
+ACKNOWLEDGEMENTS	IV
+TABLE OF CONTENTS	V
+ABBREVIATIONS	VII
+LIST OF FIGURES	VIII
+LIST OF Tables	IX
+Chapter 1:	Introduction	1
+1.1	Overview	1
+1.2	Project Motivation	1
+1.3	Problem Statement	2
+1.4	Project Aim and Objectives	2
+1.5	Project Scope	3
+1.6	Project Software and Hardware Requirements	4
+1.7	Project Limitations	5
+1.8	Project Expected Output	5
+1.9	Project Schedule	5
+1.10	Project, product, and schedule risks	6
+1.11	Report Organization	6
+Chapter 2:	Literature Review	7
+2.1	Introduction	7
+2.2	Existing Systems	7
+2.3	Overall Problems of Existing Systems	8
+2.4	Overall Solution Approach	9
+Chapter 3:	Requirement Clollection/ENGENERRING AND Analysis	10
+3.1	Stakeholders	10
+3.2	Use Case or DFD Diagram	11
+3.3 Non-Functional User Requirements	15
+3.3	Constraints	18
+CHAPTER 4: Methadology	19
+4.2	Project Development Approach	19
+4.3	System Architecture	20
+4.4	Tools and Technologies	22
+4.5 Testing Strategy	23
+1	User interface design (prototype)	24
+•	Implementation Plan	27
+1	Description of Implementation	27
+2	Programming language and technology	27
+3	part of implementation if possible	27
+•	Testing Plan	28
+1	Black-box	28
+2	White-box	28
+3	Testing automation	28
+•	Conclusion and Results	29
+1	Summary of accomplished project	29
+2	Future Work	29
+References	30
+
+ 
+ABBREVIATIONS
+	
+Abbreviations	Abbreviations Explained	Page Number
+UI	User Interface	4
+UX	User Experience	4
+HTML	Hypertext Markup Language	4
+CSS	Cascading Style Sheets	4
+HTTPS	Hypertext Transfer Protocol Secure	4
+SSL	Secure Sockets Layer	4
+API	Application Programming Interface	4
+AI	Artificial Intelligence	4
+IDE	Integrated Development Environment	5
+ICT	Information and Communication Technology	5
+
+LIST OF FIGURES
+Figure 1: Schedule Table	5
+Figure 2:  Dalili stakeholder diagram	11
+Figure 3: User Case Diagram	15
+Figure 4: DFD Dalili System processes	15
+Figure 5: Text-Based Architecture Diagram (Included for clarity)	21
+Figure 6: Home Page	24
+Figure 7: Mab and AI Assistant Page	24
+Figure 8: Login Page	25
+Figure 9: Timeline Page	25
+Figure 10: About Dalili Page	26
+
+ 
+LIST OF TABLES
+Table 1: User Login	11
+Table 2: Search for Nearby Places	12
+Table 3: View Place Details	13
+Table 4: Save to Favorites	14
+
+ 
+CHAPTER 1:	 INTRODUCTION
+This chapter highlights the essential aspects of the Dalili Web Application, establishing the foundation for the project by exploring its main components and rationale. It provides an overview of the project, including its motivation, problem statement, aims, and objectives. The chapter also outlines the project’s scope, software and hardware requirements, limitations, and schedule, while presenting the overall report structure. By covering these key elements, it sets a clear framework for the following chapters, ensuring a solid understanding of the project’s purpose, resources, and objectives, as well as the challenges involved in developing a secure and intelligent tourism platform in Jordan.	
+1.1 	 Overview
+Technology plays a vital role in enhancing tourism and visitor experiences. The Dalili Web Application uses technology to provide an interactive platform where users can explore tourist attractions in Jordan, receive personalized recommendations from the AI assistant “Abu Mahmoud”, and access real-time information about each site. The system integrates Google Maps for navigation, AI for intelligent responses, and security measures to ensure safe user interactions. It improves the accessibility of tourist information, facilitates planning visits, and creates a more engaging and efficient experience for both local and international visitors.
+1.2 	 Project Motivation
+The motivation for developing the Dalili Web Application arises from the need for a modern, intelligent, and secure tourism platform in Jordan. Tourism is one of Jordan’s most vital economic sectors, yet visitors often face difficulties in accessing accurate information, planning visits, and finding directions to attractions. Existing platforms are mostly static and do not provide personalized guidance, which motivated the creation of a dynamic system that improves the overall visitor experience.
+This project is important because it simplifies access to reliable tourism information, enhances user engagement, and ensures data security. By offering real-time guidance and personalized recommendations through the AI assistant “AbuMahmoud”, it helps both local and international tourists navigate Jordan efficiently and enjoy an information-rich and safer experience.
+The innovative aspect of this project lies in integrating artificial intelligence with interactive Google Maps, delivering personalized and real-time support, features not commonly found in existing tourism websites in Jordan and other countries.
+
+1.3 	 Problem Statement
+Navigating between attractions. Existing platforms are mostly static, lack interactivity, and do not provide personalized guidance.
+This project aims to develop an intelligent tourism platform that addresses the following key issues:
+•	Improving access to reliable tourism information.
+•	Providing personalized recommendations through the AI assistant “Abu Mahmoud”.
+•	Enhancing navigation with interactive maps for a better user experience.
+
+1.4 	 Project Aim and Objectives
+The primary aim of this project is to develop an intelligent, secure, and user-friendly web application that enhances the tourism experience in Jordan by providing accurate information, personalized recommendations, and interactive navigation for visitors.
+The objective of this project is to create an easy-to-use platform that allows tourists to explore attractions, access real-time details about sites, and receive guidance from the AI assistant “Abu Mahmoud”. The system integrates interactive maps and smart recommendations to improve planning, engagement, and overall user experience.
+This project aims to achieve the following objectives:
+•	Provide accurate, up-to-date information about tourist attractions.
+•	Offer personalized recommendations based on user preferences and location.
+•	Improve navigation using interactive Google Maps markers.
+•	Enhance user engagement with a responsive and intuitive interface.
+•	Ensure a secure environment for all users by protecting data and API keys.
+•	Allow users to search and filter attractions quickly.
+•	Enable real-time interaction with the AI assistant for guidance and suggestions.
+1.5 	Project Scope
+Project Boundaries: The Dalili Web Application aims to develop an intelligent, secure, and user-friendly tourism platform for Jordan. The core features of the project include:
+•	Interactive Map Management: Displaying tourist attractions with markers, images, and descriptions, including navigation and direction options.
+•	AI Assistant Integration: Implementing “Abu Mahmoud” to provide personalized recommendations and real-time responses to user queries.
+•	Search and Filtering: Allowing users to search for attractions based on categories, interests, or proximity.
+•	Responsive Interface: Ensuring the application is accessible and user-friendly on multiple devices, including desktops and mobile devices.
+Team Responsibilities:
+•	Project Manager: Responsible for overall project planning, monitoring progress, coordinating the team, ensuring adherence to timelines, and providing necessary resources.
+•	Front-End Developer: Responsible for designing and implementing the user interface, ensuring a smooth and responsive user experience across different devices, and enhancing user interaction with maps and the AI assistant.
+•	Back-End Developer: Responsible for integrating Google Maps API and Gemini AI API, managing databases, implementing application logic, and ensuring system performance, stability, and security.
+•	UI/UX Designer: Responsible for designing layouts, colors, icons, and the overall look and feel of the application, ensuring an attractive and user-friendly interface.
+•	Quality Assurance Engineer (QA): Responsible for comprehensive testing of features, verifying functionality, testing device compatibility, and ensuring data security and application reliability.
+•	Content/Research Specialist: Responsible for collecting accurate information about tourist sites, preparing concise descriptions for each location, and ensuring the accuracy of the data displayed within the application.
+Verification and Approval Procedures:
+1.	Feature Verification: QA team tests each completed feature to ensure it meets specifications and functional requirements.
+2.	Team Review: Team members review features from their perspective to ensure quality and completeness.
+3.	Project Manager Approval: the Project Manager gives final approval. Once approved, the feature is considered complete and ready for launch or progression to the next phase.
+1.6 	Project Software and Hardware Requirements
+ Hardware Requirements:
+•	Processor: Intel Core i5 10th Gen or higher
+•	RAM: 8GB or more
+•	Storage: Solid-State Drive (SSD) with sufficient free space
+•	Internet Connection: A stable internet connection is essential for API access, testing, and deployment
+Software Requirements:
+•	Operating System: Windows 10 / 11 or macOS
+•	Text Editor / IDE: Visual Studio Code 
+•	Frontend: HTML, CSS, JavaScript
+•	Backend / APIs: Integration with Google Maps API and Gemini AI API
+•	Database / Storage: Cloud storage for assets (images, map data) and optional database for caching user queries
+
+
+1.7 	Project Limitations
+•	The system currently depends on an internet connection to display the interactive map and location data, which means it cannot function offline.
+•	The platform focuses only on tourist places within Jordan, so expanding it to other countries would require additional data and resources.
+•	The system does not yet include a mobile application, which limits accessibility for some users. 
+1.8 	Project Expected Output 
+•	The expected output of the project is a functional and user-friendly web platform that provides secure and interactive access to tourist destinations in Jordan.
+•	Users should be able to log in, explore tourist locations through Google Maps, and view details such as descriptions, images, and directions.
+•	The system is expected to enhance the tourism experience by offering accurate, reliable, and easily accessible information. 
+ 
+1.9 	Project Schedule 
+ 
+Figure 1: Schedule Table
+1.10	  Project, product, and schedule risks
+•	Project Risk – Delay in Completion: The project may take longer than scheduled due to unexpected technical challenges, such as integrating Google Maps API and Gemini API or delays in UI/UX design.
+•	Product Risk – Feature Malfunction: Some platform features may not work as intended, such as the interactive map not displaying all tourist locations correctly or the virtual assistant providing inaccurate responses.
+•	Schedule Risk – Milestone Delays: Description: There is a possibility of delays in completing key project milestones, like UI/UX design, development, or testing, which could affect overall project delivery.
+1.11	Report Organization
+The rest of the report is organized as follows:
+Chapter 2 Literature Review: Introduces previous tourism platforms and applications, highlighting the gaps and challenges that Dalili aims to address.
+Chapter 3 Requirement Engineering and Analysis: Lists the functional and non-functional requirements, stakeholders, and use cases for the platform.
+Chapter 4 Architecture and Design: Presents the software architecture, system components, and user interface prototypes.
+Chapter 5 Implementation Plan: Describes the development process, programming tools, and code examples for integrating Google Maps and the virtual assistant.
+Chapter 6 Testing Plan: Covers the testing strategies, including black-box and white-box testing, and discusses expected outcomes.
+Chapter 7 Conclusion and Future Work: Summarizes the results, lessons learned, and potential enhancements such as mobile apps, AR support, and site evaluation features. 
+CHAPTER 2:	 LITERATURE REVIEW
+2.1 	Introduction
+Tourism guidance platforms are digital systems designed to provide visitors with access to locations, maps, and essential information that enhances their travel experience. These systems often combine interactive mapping tools, location data, and informational content to help users navigate destinations more easily. Existing tourism platforms vary in functionality, ranging from simple map-based applications to more advanced systems that include recommendations and automated assistance.
+This chapter reviews a range of tourism-related systems and applications to understand how they operate, what services they provide, and how they support users. The goal is to identify common features, current capabilities, and existing gaps in these systems. This analysis forms the foundation for positioning the Dalili platform and clarifying how it extends beyond current solutions through smart navigation and AI-driven assistance.
+2.2 	Existing Systems
+Several digital tourism platforms have been developed to assist travelers by providing interactive maps, detailed location information, and relevant travel data. Among the most prominent systems is VisitJordan (Jordan, n.d.), an online platform that presents tourist attractions in Jordan through structured informational pages, images, and general descriptions. The platform enables users to explore major sites and gain insights into available activities.
+Another notable system is Google Travel (Google, n.d.), which offers interactive maps, recommended destinations, and travel suggestions tailored to user preferences. This platform allows users to access points of interest, navigate locations efficiently, and obtain essential information regarding each site.
+While these platforms provide valuable informational content and basic navigation support, they primarily rely on user-initiated searches and static data. They do not incorporate real-time intelligent assistance for smart guidance, which represents an opportunity for the Dalili project to introduce enhanced functionality and user experience.
+
+2.3 	Overall Problems of Existing Systems
+Although current tourism platforms offer useful information, they still have several limitations that reduce their overall effectiveness. Most of these systems rely on the user to manually search for places, which makes the experience less smooth—especially for tourists who are not familiar with the area. In many cases, the information provided is static and does not adapt to the user’s location or needs.
+Another problem is the lack of real-time guidance and smart recommendations. These platforms do not inform users about the best routes, nearby attractions, or updates related to traffic or crowded areas. Many systems also lack localized content specifically tailored to the travel experience inside Jordan, making the information too general at times.
+Finally, tourists often need to switch between multiple apps—one for maps, one for information, and another for recommendations. This creates a fragmented experience and slows down the process of finding the right information. These issues highlight the need for a platform like Dalili, which provides smarter guidance, stronger localization, and a more integrated user experience.
+
+2.4 	Overall Solution Approach
+The proposed solution addresses the limitations of existing tourism platforms by integrating intelligent assistance, interactive navigation, and localized content into a unified system. The Dalili Web Application combines Google Maps API for dynamic geographic visualization with Gemini AI to provide real-time, personalized recommendations and responses to user queries. Instead of relying on static information or manual searching, the system delivers an adaptive and interactive experience that guides tourists based on their preferences, location, and interests.
+The solution offers a centralized platform where users can explore tourist attractions, view detailed descriptions, and access navigation tools without switching between multiple applications. The virtual assistant “Abu Mahmoud” enhances the user experience by offering culturally relevant, AI-powered guidance in Arabic and English. The platform also integrates essential security measures to ensure safe user interactions and protect API keys and data exchanges. Through this combined approach, Dalili provides a more efficient, intelligent, and user-friendly alternative to existing tourism systems, ultimately improving accessibility and engagement for visitors in Jordan. 
+CHAPTER 3:	 REQUIREMENT CLOLLECTION/ENGENERRING AND ANALYSIS
+3.1 	Stakeholders
+      Main Stakeholders:
+•	Tourists and Visitors: They are the primary users of the platform. Tourists rely on Dalili to locate attractions, access accurate cultural and historical information, and receive personalized recommendations through the AI assistant “Abu Mahmoud.” Their feedback directly influences the system's usability and features, such as multilingual support in Arabic and English.
+•	Tourism Service Providers (e.g., museums, tour guides, attraction sites): These entities offer services that Dalili promotes. They benefit from increased visibility and visitor traffic by having their locations accurately mapped and recommended via Google Maps API and AI-driven insights, potentially leading to higher bookings and revenue.
+•	Platform Administrators and Developers: As the creators and maintainers of Dalili, they oversee system operations, including integrating technologies like Gemini AI for intelligent responses and ensuring web security for safe interactions. They aim to improve performance and scalability while managing costs and user data.
+       Secondary Stakeholders:
+•	Ministry of Tourism and Antiquities / Local Tourism Authorities: These organizations benefit indirectly from Dalili's role in enhancing visitor experiences and promoting Jordan's tourism sector. The platform supports national strategies by providing a unified, smart system that could increase tourist numbers and cultural awareness.
+•	Local Businesses (e.g., restaurants, shops, transportation services): These businesses may see increased customer flow as tourists use Dalili to explore nearby services and navigate areas via interactive maps. However, they might also face indirect competition from recommended alternatives within the platform.
+•	Technology Providers (e.g., Google Maps API, Gemini AI, hosting services): Companies supplying the core technologies and infrastructure enable Dalili's features, such as geospatial visualization and natural-language assistance. They benefit from partnerships and the platform's adoption, while ensuring reliable, secure operations.
+•	Local Community: The community in Jordan may be indirectly affected by increased tourism activity facilitated by Dalili, leading to economic growth, job opportunities, and cultural exposure. However, it could also introduce challenges like environmental impacts or overcrowding at sites.
+ 
+Figure 2:  Dalili stakeholder diagram
+3.2 	Use Case or DFD Diagram
+Table 1: User Login
+Use Case Name 	User Login
+Actor		User
+Description		The user enters their credentials to access the system.
+Precondition	The user must have an existing registered account.
+Post-condition	The user is logged into the system successfully.
+Normal Flow	1. User opens the Dalili system.
+2. System displays login screen.
+3. User enters email & password.
+4. User clicks “Login”.
+5. System validates credentials.
+6. User is redirected to the home page.
+Alternative Flow	 Incorrect Credentials
+1. System detects wrong login info.
+2. Displays error message.
+3. User retries.
+1) User Login — Alternative Flows
+Incorrect Login Credentials: The user enters a wrong email or password.
+1.	System checks the entered credentials.
+2.	System detects that the data does not match any account.
+3.	System displays an error message: “Incorrect email or password.”
+4.	User is asked to re-enter valid login information.
+Account Not Found: The user tries to log in with an unregistered account.
+1.	System searches for matching account.
+2.	No account is found.
+3.	System displays message: “This account does not exist.”
+4.	User is redirected to the registration page.
+Table 2: Search for Nearby Places
+Use Case Name	Search for Nearby Places
+Actor		User
+Description		User searches for tourist places near their current location.  
+Precondition	User is logged in & location is enabled.
+Post-condition	System displays a list of nearby places.
+Normal Flow	1. User opens home page.
+2. Clicks “Nearby Places”.
+3. System gets location. 
+4. System searches within radius.
+5. System displays results.
+Alternative Flow	Location Disabled
+1. System can’t access location.
+2. Shows message to enable location.
+3. User enables and retries.        
+2) Search for Nearby Places — Alternative Flows
+Location Services Disabled: The system is unable to get the user's location.
+1.	System attempts to access the device GPS.
+2.	Location permission is denied or disabled.
+3.	System displays a message requesting the user to enable location services.
+4.	User enables location and retries.
+No Places Found Within Range: Search is successful, but no tourist places exist near the user's location.
+1.	System completes search.
+2.	No results found.
+3.	System displays message: “No places found nearby.”
+4.	User may expand search radius or try another location.
+Table 3: View Place Details
+Use Case Name	View Place Details
+Actor		User
+Description		User views full information of a selected place.
+Precondition	A place must be selected from results.
+Post-condition	Details page is displayed.
+Normal Flow	1. User selects a place.
+2. System loads info.
+3. System shows images & description.
+4. User browses details.
+Alternative Flow	Data Not Available
+1. System can’t load data.
+2. System shows “Data not available”.
+	
+3) View Place Details — Alternative Flows
+ Failed to Load Place Information: Place data is unavailable due to server or connection issue.
+1.	User selects a place.
+2.	System attempts to load details.
+3.	Loading fails.
+4.	System displays “Details not available at the moment.”
+5.	User returns to the previous list.
+Images Cannot Be Loaded: Images fail to load due to slow internet.
+Steps
+1.	System loads text details only.
+2.	System displays placeholder image or error message.
+3.	User may reload the page.
+Table 4: Save to Favorites
+Use Case Name	Save to Favorites
+Actor		User
+Description		User saves a place to the favorites list.
+Precondition	User is logged in & has selected a place.
+Post-condition	Place is successfully added to favorites.
+Normal Flow	1. User opens place details.
+2. Clicks “Save to Favorites”.
+3. System stores it.
+4. System confirms.
+Alternative Flow	Already Saved
+1. System finds it saved before.
+2. Shows a message.
+4) Save to Favorites — Alternative Flows
+Place Already in Favorites: User tries to save a place that is already saved.
+1.	System checks if the place exists in user’s favorites.
+2.	System detects duplication.
+3.	System shows message: “This place is already saved.”
+Failed to Save: Saving operation fails due to server error.
+1.	User clicks “Save to Favorites”.
+2.	System attempts to store data.
+3.	Operation fails.
+4.	System shows: “Failed to save. Please try again later.”
+
+
+	
+ 
+Figure 3: User Case Diagram
+This diagram shows the main interactions between the user and the Dalili Web Application, including searching for places, viewing details, opening maps, and using the AI assistant.
+ 
+Figure 4: DFD Dalili System processes
+This diagram illustrates the Dalili System, where users interact by logging in and managing their profiles. The system allows users to search for places, manage favorites and reviews, use an AI assistant, and access map navigation, while integrating with Gemini AI to handle queries and provide intelligent responses.
+3.3 Non-Functional User Requirements
+Functional Requirements
+1.	Account Creation: 
+•	The user can enter personal information such as ID number, email, and password.
+•	The information is verified for accuracy, preferably linked to the university database if available.
+•	Password strength is checked (minimum characters, numbers, and symbols).
+2.	Login:
+•	The user can log in using their email and password.
+•	Login data is verified against the stored database.
+•	Clear error messages are displayed for incorrect entries.
+3.	Password Recovery:
+•	Allows password reset via email or SMS containing a verification code.
+•	The user's identity is verified before allowing password reset.
+4.	View and Search Information:
+•	Users can search and browse educational or guidance resources available on Dalili.
+•	Detailed information is displayed for each resource or content item.
+5.	Content Interaction:
+•	Users can save, share, or comment on content.
+•	The system updates content status whenever a user interacts with it.
+6.	Notifications:
+•	The system sends notifications to users when content is updated or new resources are available.
+7.	Feedback and Reviews:
+•	Users can submit reviews or comments on content.
+•	The system checks the submissions before publishing and notifies the user of the outcome.
+Non-Functional Requirements
+Execution Qualities (Observable at Run Time)
+•	Safety: Protect personal and financial information from unauthorized access.
+•	Security: Dalili must be protected against cyber threats. Secure communication protocols (e.g., HTTPS) must be used to protect data in transit.
+•	Usability: The platform should have an intuitive interface, allowing users to quickly access information.
+•	Performance: Dalili should handle increased traffic during peak times. Page load times should be minimal to ensure a smooth user experience.
+•	Accessibility: Compatible with various devices and screen sizes.  Simple and user-friendly design for new users.
+Support for multiple languages.
+Evolution Qualities (Static Structure / Future Proof)
+•	Testability: Dalili should have a comprehensive test suite covering functional and non-functional requirements.
+•	Maintainability: The platform should include robust error handling and logging for easier troubleshooting.
+•	Extensibility: Dalili should be built with a flexible, modular architecture allowing easy addition of new features.
+•	Scalability: The platform should handle increasing users, content, and data without significant performance issues.
+3.3 	Constraints
+1.	Technological Constraints: Dalili requires a stable internet connection for maps and AI assistant features.
+2.	Usability and Accessibility Constraints: The website must be intuitive and easy to navigate, catering to users with varying technical expertise. Currently, Dalili is web-only; no mobile application is available yet.
+3.	Operational Constraints: The website must be highly available and reliable, with minimal downtime for maintenance or updates. The current release is limited to tourism coverage in Jordan.
+4.	Budget and Timeline Constraints: The project must be completed within the allocated budget and timeline without compromising the quality of deliverables.
+CHAPTER 4: METHADOLOGY 
+This chapter provides a structured explanation of the approach, techniques, and tools used to build your system. Follow the guidelines below when writing this section:
+ 4.1 Introduction
+The development of the Dalili Web Application followed an Agile methodology, specifically an iterative and incremental development approach. This methodology was chosen because the project involves integrating multiple dynamic components—such as Google Maps API, Gemini AI, and a responsive user interface—that require continuous refinement, frequent testing, and user feedback. Agile supports these needs by allowing the team to divide the project into small, manageable iterations where features are planned, designed, implemented, and evaluated in cycles.
+The flexibility of Agile made it suitable for handling evolving requirements, especially during the integration of intelligent recommendation features and map-based navigation. Each iteration enabled the team to test system components early, identify issues, and make improvements before moving to the next phase. Industry standards and frameworks such as MVC architecture, RESTful API design principles, and Google Material Design guidelines influenced the project’s development approach, ensuring scalability, usability, and clean separation between system components.
+
+4.2	Project Development Approach
+The Dalili Web Application was developed using an Agile software development methodology, which emphasizes flexibility, iterative progress, and continuous improvement. Agile was chosen because the project includes dynamic and evolving components—such as AI-based recommendations, Google Maps integration, and responsive user interface enhancements—that require frequent testing, feedback, and refinement. Unlike linear models such as Waterfall, Agile enables the team to adapt quickly whenever modifications are needed in design, functionality, or data handling.
+The Agile methodology provided several advantages for this project, including early detection of issues, the ability to refine features based on user experience, and faster integration of intelligent functionalities. It also supported parallel work among team members, allowing front-end, back-end, and AI components to be built and improved simultaneously.
+
+
+The development process followed a series of iterative phases:
+•	Planning: Identifying core features, requirements, stakeholders, and constraints.
+•	Design: Creating initial interface prototypes, system diagrams, and architectural layouts.
+•	Implementation: Developing the front-end, integrating Google Maps API and Gemini AI, and building system logic.
+•	Testing: Conducting black-box and white-box tests during each iteration to ensure functionality, security, and usability.
+•	Deployment: Preparing the system for real-world use, validating API keys, and ensuring compatibility across devices.
+
+4.3	System Architecture
+
+The Dalili Web Application follows a multi-layer client–server architecture that integrates external APIs while providing a smooth and secure user experience.
+Architecture Layers:
+1. Presentation Layer (Front-End)
+This layer contains all elements that the user interacts with. It is built using:
+•	HTML for page structure
+•	CSS for styling and layout
+•	JavaScript for dynamic behavior and API communication
+Responsibilities:
+•	Displaying Google Maps with tourist locations
+•	Interacting with the AI assistant “Abu Mahmoud”
+•	Showing site descriptions, images, and navigation options
+•	Responding to user searches and filters
+•	Providing a responsive design for mobile and desktop
+
+2. Application Logic Layer
+This layer manages system functionality and processes user actions.
+Responsibilities:
+•	Sending requests to Google Maps API
+•	Sending and receiving messages from Gemini AI API
+•	Processing map markers and directions
+•	Handling searches, filtering, and location retrieval
+•	Ensuring security for API keys and data exchange
+
+3. Data Layer
+This layer manages the storage of tourist site data and static resources.
+Includes:
+•	JSON data for attractions (coordinates, descriptions, names)
+•	Cloud-hosted images and assets
+•	Optional caching of AI-generated content
+
+4. External APIs (Critical Components)
+Two major APIs are integrated:
+a. Google Maps API
+Provides interactive map
+Allows markers, navigation, zooming, and real-time viewing
+b. Gemini AI API
+Provides smart recommendations and natural-language responses
+Supports Arabic and English interaction
+c. Text-Based Architecture Diagram (Included for clarity)
+ 
+Figure 5: Text-Based Architecture Diagram (Included for clarity)
+4.4	Tools and Technologies
+The development of the Dalili web application relied on a set of modern programming languages and technologies to ensure the creation of an interactive, secure, and reliable platform. These tools were selected for their ability to support interactive maps, artificial intelligence, and a smooth user experience.
+Programming Languages and Web Technologies:
+•	HTML, CSS, and JavaScript: Used to build the user interface and design interactive, user-friendly web pages that work efficiently across different devices.
+•	JavaScript ES6: Helped in writing more organized code, improving performance, and reducing errors.
+External APIs and Technologies:
+•	Google Maps API: Used to display interactive maps, locate tourist attractions, and provide routes and directions for visitors. It was chosen for its accuracy, widespread use, and ease of integration into web applications.
+•	Gemini AI API: Powers the intelligent assistant “Abu Mahmoud,” which provides natural responses and smart recommendations to users. It was selected for its high language processing capabilities and seamless integration with the front end.
+Development Tools:
+•	Visual Studio Code (VS Code): Chosen as the main development environment due to its lightweight nature, powerful extensions for HTML, CSS, and JavaScript, and effective debugging tools.
+•	Browser Developer Tools: Used to analyse performance, inspect page elements, track JavaScript errors, and monitor API interactions during development.
+Supporting Technologies:
+•	HTTPS: Ensures secure communication between the user and the server, protecting data during exchange.
+•	Responsive Design: Guarantees that the application works efficiently across different devices, including computers and mobile phones.
+•	Simple UI Libraries (CSS Utilities): Improve design and make it easier to manage spacing, colours, and layout.
+Combined, these technologies contributed to building a web application that is fast, user-friendly, secure, and fully integrated with AI features and interactive maps, making Dalili an effective and advanced platform for supporting tourism in Jordan.
+
+
+4.5 Testing Strategy
+Testing Methodology:
+The Dalili web application follows a comprehensive testing approach to ensure reliability, functionality, and user satisfaction. The methodology includes:
+•	Unit Testing: Individual components, such as functions and modules, are tested to verify they perform as expected.
+•	Integration Testing: Interaction between different modules and APIs (e.g., Google Maps API, Gemini AI API) is tested to ensure seamless communication and correct data flow.
+•	System Testing: The entire application is tested as a whole to confirm that all features work together correctly and meet the specified requirements.
+•	User Acceptance Testing (UAT): Real users test the application to provide feedback on usability, interface design, and overall experience, ensuring it meets user expectations.
+Error Identification and Resolution:
+Errors and issues are identified through automated testing tools, browser developer tools, and user feedback. Each identified issue is logged, prioritized, and addressed promptly. Regression testing is conducted after fixes to ensure no new issues are introduced.
+Test Cases and Validation:
+Test cases cover key functionalities, including map interactions, AI assistant responses, search functionality, and responsive design. For each test case:
+•	Input/Action: Specific user action or input is defined.
+•	Expected Outcome: The correct behaviour or response of the system is described.
+•	Validation Technique: The actual output is compared with the expected outcome to confirm correctness.
+
+1	 User interface design (prototype)
+ 
+Figure 6: Home Page
+ 
+Figure 7: Mab and AI Assistant Page
+ 
+Figure 8: Login Page
+ 
+Figure 9: Timeline Page
+ 
+Figure 10: About Dalili Page
+
+
+(End of Project 1)
+ 
+•	 IMPLEMENTATION PLAN
+1	Description of Implementation
+This subsection of the Project Implementation Plan describes Solution in more details. Describes how the information system will be deployed, installed and transitioned into an operational system. It contains a brief description of the major tasks and components involved in the implementation, the overall resources needed to support the implementation effort (such as hardware, software. facilities, materials, and personnel), and any site-specific implementation requirements.
+2	Programming language and technology
+This section provides a list of programing languages, technologies, software and databases required to support the implementation. Identify them by name, code, or acronym. Identify which software is commercial off-the-shelf and which is State-specific. Identify any software used to facilitate the implementation process.
+3	part of implementation if possible
+Provide pieces of code for major tasks and components.
+
+ 
+•	 TESTING PLAN
+Describe the scope, approach, resources and schedule of intended test activities. It identifies amongst others test items, the features to be tested, the testing tasks, test coverage, degree of tester independence, the test environment, the test design techniques and entry and exit criteria to be used, and the rationale for their choice.
+1	Black-box
+Provide the black-box techniques that are used to test this project including test cases.
+2	White-box
+Provide the white-box techniques that are used to test this project including test cases (test case if code is available).
+3	Testing automation
+This section should provide:
+1. The automation tools that have been used to control the execution of tests and the comparison of actual outcomes with predicted outcomes.
+2. Decide what test cases to automate.
+•	 CONCLUSION AND RESULTS
+The conclusion is a required part that closes the document with a brief summary of the study including the problems found and the proposed solution. Most importantly, it should recommend to the readers the benefits of pursuing the project based on the researcher’s analysis.
+1	Summary of accomplished project
+2	Future Work
+ 
+REFERENCES
+Google. (n.d.). Google Travel. Retrieved from https://www.google.com/travel
+Jordan, V. (n.d.). Official tourism website of Jordan. Retrieved from Visit Jordan: https://visitjordan.com/
+
+
+
+

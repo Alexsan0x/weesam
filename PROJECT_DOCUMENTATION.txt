@@ -1,0 +1,521 @@
+================================================================================
+                        DALILI WEB APPLICATION
+                     PROJECT DOCUMENTATION
+================================================================================
+
+    Mutah University — Faculty of Information Technology
+    Graduation Project Documentation
+
+    Prepared by:
+    - Wesam M Abu-Nsair        (420222212507 / Information Security)
+    - Abdalrahman H Al-Majali  (120222212047 / Information Security)
+    - Shahd M Al-Salman        (120222211048 / Computer Science)
+    - Esra'a A Al-Masoud       (120222211007 / Computer Science)
+
+    Supervised by: Dr. Ghayth Al-Mahadin
+
+================================================================================
+                        TABLE OF CONTENTS
+================================================================================
+
+    1. Project Overview
+    2. Problem Statement and Motivation
+    3. Technology Stack
+    4. System Architecture
+    5. Database Design
+    6. File Structure
+    7. Page Descriptions
+    8. API Endpoints
+    9. AI Integration (Gemini API)
+    10. Google Maps Integration
+    11. Security Measures
+    12. Setup and Installation Guide
+    13. Testing Approach
+    14. Future Improvements
+
+================================================================================
+1. PROJECT OVERVIEW
+================================================================================
+
+Dalili (Arabic for "My Guide") is a secure, intelligent tourism web application
+designed to enhance visitors' experiences in Jordan. The platform provides:
+
+    - An interactive map with 13+ tourist destinations across Jordan
+    - An AI-powered virtual assistant named "Abu Mahmoud" that communicates
+      in both Arabic and English
+    - User accounts with the ability to save favorite places
+    - A historical timeline view of Jordan's attractions
+    - Responsive design that works on desktop, tablet, and mobile
+    - Secure authentication with encrypted passwords
+
+The name "Dalili" was chosen because it means "My Guide" in Arabic, which
+perfectly aligns with the application's purpose of guiding tourists through
+Jordan's rich cultural heritage and natural beauty.
+
+================================================================================
+2. PROBLEM STATEMENT AND MOTIVATION
+================================================================================
+
+Problem:
+    Jordan attracts millions of tourists annually, yet there is no unified,
+    smart platform that helps visitors:
+    - Locate attractions easily on an interactive map
+    - Access accurate cultural and historical information
+    - Receive personalized, AI-driven recommendations
+    - Communicate with a virtual guide in their preferred language
+
+Motivation:
+    Jordan's tourism sector is a key pillar of its economy. By combining
+    modern web technologies with artificial intelligence and geospatial data,
+    Dalili aims to make tourism information more accessible, engaging, and
+    personalized. This supports Jordan's Vision 2025 goals for digital
+    transformation in the tourism sector.
+
+Solution:
+    A web application that integrates Google Maps API for geographic
+    visualization, Google Gemini AI for natural-language assistance, and
+    PHP/MySQL for secure backend logic, creating a comprehensive tourism
+    companion for visitors exploring Jordan.
+
+================================================================================
+3. TECHNOLOGY STACK
+================================================================================
+
+Frontend:
+    - HTML5           Semantic page structure and content
+    - CSS3            Responsive layout, animations, and visual design
+    - JavaScript      Client-side interactivity and API communication
+    - Font Awesome    Icon library for UI elements
+    - Google Fonts    Typography (Poppins + Cairo font families)
+
+Backend:
+    - PHP 7.4+        Server-side logic, routing, and security
+    - PostgreSQL      Relational database for user data and favorites
+    - PDO             Secure database access with prepared statements
+
+External APIs:
+    - Google Maps JavaScript API    Interactive maps, markers, and directions
+    - Google Gemini AI API          Natural language processing for the AI
+                                    assistant (gemini-2.0-flash model)
+
+Reasoning for Gemini AI Choice:
+    Google Gemini was selected over other AI models because:
+    1. Excellent Arabic language support (critical for Jordanian tourism)
+    2. Low latency with the gemini-2.0-flash model
+    3. Strong knowledge of Middle Eastern geography and culture
+    4. Free tier availability for development and testing
+    5. Seamless integration alongside Google Maps API
+    6. Supports system instructions for character persona (Abu Mahmoud)
+
+================================================================================
+4. SYSTEM ARCHITECTURE
+================================================================================
+
+The application follows a standard three-tier web architecture:
+
+    +---------------------------------------------------------+
+    |                    PRESENTATION LAYER                    |
+    |  HTML/CSS/JavaScript     Browser     Responsive UI      |
+    +---------------------------------------------------------+
+                                |
+                                v
+    +---------------------------------------------------------+
+    |                     APPLICATION LAYER                    |
+    |  PHP Pages    API Endpoints    Session Management        |
+    |  config.php   api/chat.php     api/places.php            |
+    |  db.php       api/auth.php     api/favorites.php         |
+    +---------------------------------------------------------+
+                                |
+                                v
+    +---------------------------------------------------------+
+    |                       DATA LAYER                         |
+    |  PostgreSQL Database      JSON Data Files                 |
+    |  (users, favorites)       (places.json)                  |
+    +---------------------------------------------------------+
+                                |
+                                v
+    +---------------------------------------------------------+
+    |                   EXTERNAL SERVICES                      |
+    |  Google Maps API              Google Gemini AI API       |
+    |  (Maps, Markers, Directions)  (Chat, Recommendations)   |
+    +---------------------------------------------------------+
+
+Request Flow:
+    1. User opens a page in the browser
+    2. PHP processes the request, includes header/footer
+    3. JavaScript loads data via API endpoints (AJAX/fetch)
+    4. API endpoints query the database or external services
+    5. Response is rendered in the browser dynamically
+
+================================================================================
+5. DATABASE DESIGN
+================================================================================
+
+The MySQL database (dalili_db) contains two tables:
+
+Table: users
+    +----------------+------------------+-----------------------------------+
+    | Column         | Type             | Description                       |
+    +----------------+------------------+-----------------------------------+
+    | id             | INT (PK, AI)     | Unique user identifier            |
+    | name           | VARCHAR(100)     | User's full name                  |
+    | email          | VARCHAR(255)     | User's email (unique)             |
+    | password_hash  | VARCHAR(255)     | Bcrypt-hashed password            |
+    | created_at     | TIMESTAMP        | Account creation timestamp        |
+    +----------------+------------------+-----------------------------------+
+
+Table: favorites
+    +----------------+------------------+-----------------------------------+
+    | Column         | Type             | Description                       |
+    +----------------+------------------+-----------------------------------+
+    | id             | INT (PK, AI)     | Unique favorite record ID         |
+    | user_id        | INT (FK)         | References users.id               |
+    | place_id       | VARCHAR(50)      | Place identifier from JSON data   |
+    | created_at     | TIMESTAMP        | When the favorite was saved       |
+    +----------------+------------------+-----------------------------------+
+    Constraints: FOREIGN KEY on user_id, UNIQUE on (user_id, place_id)
+
+Why this design:
+    - Tourist place data is stored in a JSON file because it is static
+      content that does not change frequently and does not require relational
+      queries.
+    - User data and favorites are stored in PostgreSQL because they involve
+      dynamic operations (registration, login, adding/removing favorites)
+      that benefit from ACID compliance and prepared statements.
+
+================================================================================
+6. FILE STRUCTURE
+================================================================================
+
+    dalili/
+    |
+    |-- config.php              Global configuration and helper functions
+    |-- db.php                  Database connection and query functions
+    |-- setup.sql               SQL script to create the database
+    |
+    |-- index.php               Homepage with hero, features, and featured places
+    |-- login.php               User login page with form validation
+    |-- register.php            User registration page
+    |-- logout.php              Session destruction and redirect
+    |-- map.php                 Main map page with sidebar and AI chat
+    |-- timeline.php            Historical timeline of Jordan's sites
+    |-- about.php               About page with team, tech stack, and features
+    |-- favorites.php           User's saved favorite places (auth required)
+    |
+    |-- api/
+    |   |-- auth.php            JSON API for login/register
+    |   |-- chat.php            Proxy to Gemini AI for the Abu Mahmoud chatbot
+    |   |-- favorites.php       JSON API for add/remove/list favorites
+    |   |-- places.php          JSON API to fetch and filter tourist places
+    |
+    |-- css/
+    |   |-- style.css           Complete stylesheet (900+ lines, no framework)
+    |
+    |-- js/
+    |   |-- main.js             Navigation, scroll effects, animations
+    |   |-- map.js              Google Maps initialization, markers, sidebar
+    |   |-- chat.js             AI chat interface and message handling
+    |
+    |-- data/
+    |   |-- places.json         Tourist place data (13 locations)
+    |
+    |-- includes/
+    |   |-- header.php          Shared navigation bar
+    |   |-- footer.php          Shared footer
+    |
+    |-- instructions/
+        |-- desc.txt            Original project description document
+
+================================================================================
+7. PAGE DESCRIPTIONS
+================================================================================
+
+Homepage (index.php):
+    - Hero section with background image overlay and call-to-action buttons
+    - Statistics bar showing number of destinations, AI support, and languages
+    - Feature cards explaining the platform's key capabilities
+    - Grid of 6 featured tourist destinations with images and descriptions
+    - Call-to-action section encouraging exploration or account creation
+
+Map Page (map.php):
+    - Full-screen layout divided into sidebar and map area
+    - Sidebar with two tabs: Places list and AI Chat
+    - Search bar with real-time filtering
+    - Category filter chips (Historical, Nature, Religious, City, Adventure)
+    - Clickable place list items that focus the map on that location
+    - Google Maps with custom markers for each destination
+    - Info windows with place details and directions link
+    - Bottom detail panel with directions and favorite buttons
+    - Abu Mahmoud AI chatbot in the second tab
+
+Login Page (login.php):
+    - Full-screen background with auth card overlay
+    - Email and password fields with server-side validation
+    - Error message display for incorrect credentials
+    - Link to registration page
+
+Register Page (register.php):
+    - Same visual style as login page
+    - Name, email, password, and confirm password fields
+    - Server-side validation (empty fields, password length, email uniqueness, password match)
+    - Success message after registration
+
+Timeline Page (timeline.php):
+    - Hero banner with page title
+    - Vertical timeline with alternating left/right cards
+    - Each card shows the place image, era tag, name, and description
+    - Places are sorted chronologically by year of establishment
+
+About Page (about.php):
+    - Hero banner
+    - Project description section
+    - Technology stack grid with icons
+    - Key features section
+    - Team member cards with names, roles, and student IDs
+    - Supervisor acknowledgment
+
+Favorites Page (favorites.php):
+    - Requires authentication (redirects to login if not logged in)
+    - Displays saved places in a card grid
+    - Shows empty state message with link to map if no favorites
+    - Each card links to the map view for that place
+
+================================================================================
+8. API ENDPOINTS
+================================================================================
+
+All API endpoints return JSON responses.
+
+GET /api/places.php
+    Parameters: category (optional), search (optional)
+    Returns: List of tourist places, filtered if parameters provided
+    Authentication: Not required
+
+POST /api/chat.php
+    Body: JSON { "message": "user's question" }
+    Returns: AI-generated response from Abu Mahmoud
+    Authentication: Not required
+    Note: Proxies requests to Google Gemini API
+
+POST /api/auth.php
+    Parameters: action (login|register), email, password, name (for register)
+    Returns: Success/failure with message
+    Authentication: Not required
+
+GET/POST /api/favorites.php
+    Parameters: action (list|add|remove), place_id (for add/remove)
+    Returns: List of favorites or success/failure message
+    Authentication: Required (session-based)
+
+================================================================================
+9. AI INTEGRATION (GEMINI API)
+================================================================================
+
+The AI assistant "Abu Mahmoud" is powered by Google's Gemini AI API
+(gemini-2.0-flash model) and is integrated through a server-side proxy
+pattern for security:
+
+How it works:
+    1. User types a message in the chat interface
+    2. JavaScript sends the message to api/chat.php via fetch()
+    3. PHP constructs a request to Gemini API with a system prompt
+    4. The system prompt defines Abu Mahmoud's personality and knowledge
+    5. Gemini processes the message and returns a response
+    6. PHP relays the response back to the browser
+    7. JavaScript displays the response in the chat window
+
+System Prompt (defines Abu Mahmoud's behavior):
+    - Acts as a friendly, knowledgeable tourism guide for Jordan
+    - Knows about Petra, Wadi Rum, Dead Sea, Jerash, and other attractions
+    - Provides travel tips, historical context, cultural insights
+    - Responds in the same language the user writes in (Arabic or English)
+    - Keeps responses concise (2-4 paragraphs)
+    - Stays focused on Jordan tourism topics
+
+Why server-side proxy:
+    - API key is never exposed to the browser
+    - Server can validate and sanitize user input
+    - Rate limiting can be added at the PHP level
+    - Response can be cached if needed
+
+================================================================================
+10. GOOGLE MAPS INTEGRATION
+================================================================================
+
+The map page uses Google Maps JavaScript API to provide:
+
+Features implemented:
+    - Custom map centered on Jordan (lat: 31.5, lng: 36.0)
+    - Markers for all 13 tourist destinations with drop animation
+    - Info windows with place image, description, and directions link
+    - Click-to-focus from the sidebar places list
+    - Deep linking (map.php?place=petra opens and focuses Petra)
+    - Category filtering updates both sidebar and markers
+    - Search filtering with debounce for performance
+    - Directions integration via Google Maps external links
+
+Map customization:
+    - Simplified POI (points of interest) display
+    - Transit layer hidden for cleaner look
+    - Street view disabled
+    - Fullscreen control enabled
+
+================================================================================
+11. SECURITY MEASURES
+================================================================================
+
+The application implements several security best practices:
+
+    1. Password Hashing
+       All passwords are hashed using PHP's password_hash() with
+       PASSWORD_DEFAULT (bcrypt). Plain text passwords are never stored.
+
+    2. Prepared Statements
+       All database queries use PDO prepared statements to prevent
+       SQL injection attacks.
+
+    3. Input Sanitization
+       The sanitize() function uses htmlspecialchars() with ENT_QUOTES
+       and UTF-8 encoding to prevent XSS (Cross-Site Scripting) attacks.
+
+    4. Session Management
+       PHP sessions are used for authentication state. Session IDs
+       are regenerated on login to prevent session fixation.
+
+    5. API Key Protection
+       The Gemini API key is stored server-side in config.php and
+       never exposed to the client. Chat requests are proxied
+       through api/chat.php.
+
+    6. Access Control
+       The favorites page and favorites API enforce authentication
+       checks before allowing access to user-specific data.
+
+    7. CSRF Consideration
+       Forms use POST method with server-side validation.
+
+================================================================================
+12. SETUP AND INSTALLATION GUIDE
+================================================================================
+
+Prerequisites:
+    - PHP 7.4+ with pdo_pgsql extension
+    - PostgreSQL 13+
+    - A web browser (Chrome, Firefox, Edge, or Safari)
+    - Google Maps API key (from Google Cloud Console)
+    - Google Gemini API key (from Google AI Studio)
+
+Step-by-step installation:
+
+    1. Install PostgreSQL
+       Download from https://www.postgresql.org/download and install.
+       Remember the password you set for the 'postgres' user.
+
+    2. Copy project files
+       Place the project folder anywhere on your system.
+
+    3. Create the database
+       Open pgAdmin or a terminal and run:
+           psql -U postgres
+           CREATE DATABASE dalili_db;
+           \c dalili_db
+           (then run the CREATE TABLE statements from setup.sql)
+       Or import setup.sql directly:
+           psql -U postgres -f setup.sql
+
+    4. Configure API keys
+       Open config.php and replace:
+           $google_maps_api_key = 'YOUR_GOOGLE_MAPS_API_KEY';
+           $gemini_api_key = 'YOUR_GEMINI_API_KEY';
+       with your actual API keys.
+
+    5. Getting a Google Maps API Key
+       - Go to https://console.cloud.google.com
+       - Create a new project
+       - Enable "Maps JavaScript API"
+       - Go to Credentials and create an API key
+       - Optionally restrict it to your domain
+
+    6. Getting a Gemini API Key
+       - Go to https://aistudio.google.com/apikey
+       - Sign in with your Google account
+       - Click "Create API Key"
+       - Copy the key
+
+    7. Start the PHP development server
+       Open a terminal in the project folder and run:
+           php -S localhost:8000
+
+    8. Access the application
+       Open your browser and go to: http://localhost:8000/
+
+================================================================================
+13. TESTING APPROACH
+================================================================================
+
+Black-Box Testing (Functional):
+    +----+---------------------------+------------------------+---------+
+    | #  | Test Case                 | Expected Result        | Status  |
+    +----+---------------------------+------------------------+---------+
+    | 1  | Open homepage             | Hero and places load   | Pass    |
+    | 2  | Click "Explore the Map"   | Map page opens         | Pass    |
+    | 3  | Search for "Petra"        | Only Petra shown       | Pass    |
+    | 4  | Filter by "Historical"    | Historical places only | Pass    |
+    | 5  | Click a marker on map     | Info window appears    | Pass    |
+    | 6  | Register new account      | Account created        | Pass    |
+    | 7  | Login with credentials    | Session started        | Pass    |
+    | 8  | Login wrong password      | Error message shown    | Pass    |
+    | 9  | Save a favorite           | Place added to list    | Pass    |
+    | 10 | Ask Abu Mahmoud question  | AI responds            | Pass    |
+    | 11 | Ask in Arabic             | Response in Arabic     | Pass    |
+    | 12 | View timeline             | Places in order        | Pass    |
+    | 13 | View favorites page       | Saved places shown     | Pass    |
+    | 14 | Access favorites logged out| Redirected to login   | Pass    |
+    | 15 | Responsive on mobile      | Layout adapts          | Pass    |
+    +----+---------------------------+------------------------+---------+
+
+White-Box Testing (Code-Level):
+    - Database connection error handling tested
+    - Empty input validation in login/register forms
+    - SQL injection attempts blocked by prepared statements
+    - XSS attempts blocked by sanitize() function
+    - API endpoints return proper JSON for all paths
+    - 404 and error states handled gracefully
+
+================================================================================
+14. FUTURE IMPROVEMENTS
+================================================================================
+
+    1. Multi-language UI
+       Add full Arabic interface toggle, not just AI responses.
+
+    2. User Reviews and Ratings
+       Allow users to rate and review tourist destinations.
+
+    3. Trip Planner
+       Let users create multi-day itineraries with route optimization.
+
+    4. Offline Support
+       Implement a Service Worker for offline access to place data.
+
+    5. Push Notifications
+       Notify users about events or promotions near saved places.
+
+    6. Admin Dashboard
+       Allow administrators to manage places, users, and content.
+
+    7. Mobile Application
+       Build native Android/iOS apps using the same API backend.
+
+    8. Weather Integration
+       Show real-time weather data for each destination.
+
+    9. Augmented Reality
+       Integrate AR features for on-site historical visualization.
+
+    10. Social Sharing
+        Allow users to share favorite places on social media.
+
+================================================================================
+                         END OF DOCUMENTATION
+================================================================================
