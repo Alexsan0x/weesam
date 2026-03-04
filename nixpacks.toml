@@ -1,8 +1,0 @@
-[phases.setup]
-nixPkgs = ["php83", "php83Extensions.pdo_pgsql", "php83Extensions.pgsql", "php83Extensions.openssl", "php83Extensions.mbstring", "php83Extensions.curl"]
-
-[phases.install]
-cmds = ["mkdir -p /etc/php.d"]
-
-[start]
-cmd = "php -S 0.0.0.0:${PORT:-8080} -t ."
