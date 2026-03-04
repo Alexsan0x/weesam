@@ -8,6 +8,10 @@ function getDB() {
     if ($pdo === null) {
         global $db_host, $db_port, $db_name, $db_user, $db_pass;
         
+        if (!extension_loaded('pdo_pgsql')) {
+            die("PDO PostgreSQL extension is not loaded. Loaded extensions: " . implode(', ', get_loaded_extensions()));
+        }
+        
         try {
             $pdo = new PDO(
                 "pgsql:host=$db_host;port=$db_port;dbname=$db_name;sslmode=require",
@@ -19,7 +23,7 @@ function getDB() {
                 ]
             );
         } catch (PDOException $e) {
-            die("Database connection failed. Please make sure PostgreSQL is running and the database exists.");
+            die("Database connection failed: " . $e->getMessage());
         }
     }
 
